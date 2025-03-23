@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CardDuration from './CardDuration.vue'
+import CardDuration from '../../widgets/CardDuration.vue'
 
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
