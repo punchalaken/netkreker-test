@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import CardDuration from './CardDuration.vue'
+
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
-import CardDuration from './CardDuration.vue'
 
 const props = defineProps<{
     id: number
@@ -15,29 +16,22 @@ const props = defineProps<{
     duration: string[] | null
 }>()
 
-const { title, directors, actors, genres, duration } = props
+const { directors, actors } = props
 
-const alt = `Постер к фильму ${title}`
+const alt = `Постер к фильму ${props.title}`
 
-const genresSpan = genres.join(', ')
+const genresSpan = computed(() => props.genres.join(', '))
 
 const directorSpan = computed(() => {
     if (!directors) {
         return 'Режиссёр не указан'
     }
-    if (directors.length > 1) {
-        return `Режиссёры: ${directors.join(', ')}`
-    } else {
-        return `Режиссёр: ${directors[0]}`
-    }
+
+    return directors.length > 1 ? `Режиссёры: ${directors.join(', ')}` : `Режиссёр: ${directors[0]}`
 })
 
 const actorsSpan = computed(() => {
-    if (!actors) {
-        return 'Не указаны'
-    } else {
-        return actors.join(', ')
-    }
+    return !actors ? 'Не указаны' : actors.join(', ')
 })
 </script>
 
@@ -66,7 +60,7 @@ const actorsSpan = computed(() => {
                 </div>
             </div>
             <span v-if="description" class="card__description">{{ description }}</span>
-            <CardDuration :duration="duration" />
+            <CardDuration v-if="duration" :duration="duration" />
         </div>
     </li>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import FilmsHeader from '@/widgets/FilmsHeader.vue'
-import FilmsList from '@/widgets/FilmsList.vue'
+import FilmsHeader from '@widgets/FilmsHeader.vue'
+import FilmsList from '@widgets/FilmsList.vue'
 </script>
 
 <template>

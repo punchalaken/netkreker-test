@@ -1,58 +1,48 @@
 <script setup lang="ts">
-import FilmCard from '@/entities/FilmCard/FilmCard.vue'
-import { useFilmsStore } from '@/stores/filmsStore'
-import type { Film } from '@/stores/types'
-import axios from 'axios'
-import { onMounted, ref, type Ref } from 'vue'
+import FilmCard from '@entities/FilmCard/FilmCard.vue'
+import LoaderPrevue from '@widgets/LoaderPrevue.vue'
+import BackToListButton from '@shared/BackToListButton.vue'
+import NotFoundText from '@shared/NotFoundText.vue'
+
+import { useFilmsStore } from '@stores/filmsStore'
+import { onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const filmId = route.params.id
+const movieId = route.params.id
 
-const films = useFilmsStore().$state.films
-const currentFilm: Ref<Film | null | undefined> = ref(null)
-
-const chechFilm = () => {
-    if (films.length) {
-        currentFilm.value = films.find((film) => film.id === Number(filmId))
-    } else {
-        console.log('Послал жа')
-        axios
-            .get(`https://mashroom-movies-api.netlify.app/api/movie/${filmId}`)
-            .then((response) => {
-                currentFilm.value = response.data
-            })
-            .catch((error) => console.log(error))
-    }
-}
+const filmsStore = useFilmsStore()
 
 onMounted(() => {
-    chechFilm()
-    
+    filmsStore.getMovie(Number(movieId))
+})
+
+onUnmounted(() => {
+    filmsStore.clearMovie()
+    filmsStore.clearError()
 })
 </script>
 
 <template>
+    <BackToListButton />
+    <LoaderPrevue v-if="filmsStore.loader" />
     <FilmCard
-        v-if="currentFilm"
-        :id="currentFilm.id"
-        :poster="currentFilm.poster"
-        :title="currentFilm.title"
-        :year="currentFilm.year"
-        :genres="currentFilm.genres"
-        :description="currentFilm.description"
-        :actors="currentFilm.actors"
-        :directors="currentFilm.directors"
-        :duration="currentFilm.collapse.duration"
+        v-if="filmsStore.movie"
+        :id="filmsStore.movie.id"
+        :poster="filmsStore.movie.poster"
+        :title="filmsStore.movie.title"
+        :year="filmsStore.movie.year"
+        :genres="filmsStore.movie.genres"
+        :description="filmsStore.movie.description"
+        :actors="filmsStore.movie.actors"
+        :directors="filmsStore.movie.directors"
+        :duration="filmsStore.movie.collapse.duration"
     />
-    <div class="loader" v-else>Загрузка...</div>
+    <NotFoundText v-if="filmsStore.errorQuery" />
 </template>
 
 <style scoped lang="scss">
-.films {
-    width: 100%;
-
-    @include flex-column;
-    gap: 40px;
+.back__link {
+    margin-bottom: 40px;
 }
 </style>

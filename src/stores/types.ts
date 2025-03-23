@@ -49,4 +49,6 @@ interface Film {
     kodik: VideoSource
 }
 
-export type { Film }
+type SortValues = 'title' | 'year' | null
+
+export type { Film, SortValues }

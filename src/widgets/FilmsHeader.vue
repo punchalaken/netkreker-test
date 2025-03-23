@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import UnderlineWhite from '@/shared/UnderlineWhite.vue'
+import UnderlineWhite from '@shared/UnderlineWhite.vue'
+import SortWidget from './SortWidget.vue'
 </script>
 
 <template>
     <div class="films__header">
         <h1 class="films__header">Фильмы</h1>
-        <div class="">Сортировки</div>
+        <SortWidget />
         <UnderlineWhite />
     </div>
 </template>

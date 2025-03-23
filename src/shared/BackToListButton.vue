@@ -8,7 +8,7 @@ import UnderlineWhite from './UnderlineWhite.vue'
             <img src="/svg/back-to-list-arrow.svg" alt="Вернуться к списку" />
             <span class="back__text">Назад к списку</span>
         </RouterLink>
-        <UnderlineWhite />
+        <UnderlineWhite class="underline" />
     </div>
 </template>
 
@@ -37,6 +37,9 @@ import UnderlineWhite from './UnderlineWhite.vue'
                 }
             }
         }
+    }
+    .underline {
+        margin-bottom: 40px;
     }
 }
 </style>
