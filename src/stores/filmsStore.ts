@@ -36,7 +36,7 @@ export const useFilmsStore = defineStore('filmsStore', () => {
     const getMovie = async (id: number) => {
         loader.value = true
         if (films.value.length) {
-            const result = await films.value.find((item) => item.id === id)
+            const result = films.value.find((item) => item.id === id)
             movie.value = result ?? null
             console.log('Сделал взятие')
             loader.value = false
