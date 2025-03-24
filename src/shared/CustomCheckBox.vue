@@ -29,6 +29,7 @@ const handleEmit = () => {
     gap: 0.5em;
 
     color: $low-middle-gray;
+    cursor: pointer;
 
     .real-checkbox {
         width: 0;

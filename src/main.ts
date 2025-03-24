@@ -1,5 +1,6 @@
-import './app/styles/main.css'
+import '@app/styles/main.css'
 import '@app/styles/normalize.css'
+import '@app/styles/scss/scrollbar.scss'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
