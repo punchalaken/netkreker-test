@@ -87,6 +87,10 @@ const actorsSpan = computed(() => {
         }
     }
 
+    @include media(md) {
+        flex-direction: column;
+    }
+
     .card__image__wrapper {
         @include flex-center;
         padding-inline: 28px;
