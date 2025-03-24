@@ -9,6 +9,7 @@ import { onMounted, onUnmounted } from 'vue'
 const filmsStore = useFilmsStore()
 
 onMounted(() => {
+    filmsStore.clearFilms()
     filmsStore.getFilms()
 })
 

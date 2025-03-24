@@ -39,7 +39,7 @@ import UnderlineWhite from './UnderlineWhite.vue'
         }
     }
     .underline {
-        margin-bottom: 40px;
+        margin-bottom: 44px;
     }
 }
 </style>

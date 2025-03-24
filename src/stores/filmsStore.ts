@@ -34,15 +34,28 @@ export const useFilmsStore = defineStore('filmsStore', () => {
         })
 
     const getMovie = async (id: number) => {
-        fetchWrapper(async () => {
-            const response = await axios.get(`${urlId}${id}`)
-            const result = response.data.data
-            if (!result) {
-                errorQuery.value = true
-            } else {
-                movie.value = response.data.data
-            }
-        })
+        loader.value = true
+        if (films.value.length) {
+            const result = await films.value.find((item) => item.id === id)
+            movie.value = result ?? null
+            console.log('Сделал взятие')
+            loader.value = false
+        } else {
+            fetchWrapper(async () => {
+                const response = await axios.get(`${urlId}${id}`)
+                const result = response.data.data
+                console.log('Сделал запрос')
+                if (!result) {
+                    errorQuery.value = true
+                } else {
+                    movie.value = response.data.data
+                }
+            })
+        }
+    }
+
+    const clearFilms = () => {
+        films.value = []
     }
 
     const clearMovie = () => {
@@ -93,6 +106,7 @@ export const useFilmsStore = defineStore('filmsStore', () => {
         errorQuery,
         getFilms,
         getMovie,
+        clearFilms,
         clearMovie,
         clearError,
         sortFilms,
