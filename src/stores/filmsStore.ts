@@ -38,13 +38,11 @@ export const useFilmsStore = defineStore('filmsStore', () => {
         if (films.value.length) {
             const result = films.value.find((item) => item.id === id)
             movie.value = result ?? null
-            console.log('Сделал взятие')
             loader.value = false
         } else {
             fetchWrapper(async () => {
                 const response = await axios.get(`${urlId}${id}`)
                 const result = response.data.data
-                console.log('Сделал запрос')
                 if (!result) {
                     errorQuery.value = true
                 } else {
@@ -68,7 +66,7 @@ export const useFilmsStore = defineStore('filmsStore', () => {
 
     const sortFilms = (value: SortValues) => {
         if (value === 'title') {
-            films.value.sort((item1, item2) => {
+            films.value = [...films.value].sort((item1, item2) => {
                 const item1Number = /^\d/.test(item1.title)
                 const item2Number = /^\d/.test(item2.title)
 
@@ -86,7 +84,7 @@ export const useFilmsStore = defineStore('filmsStore', () => {
             return
         }
         if (value === 'year') {
-            films.value.sort((item1, item2) => {
+            films.value = [...films.value].sort((item1, item2) => {
                 return item1.year - item2.year
             })
             return

@@ -26,18 +26,21 @@ onUnmounted(() => {
 <template>
     <BackToListButton />
     <LoaderPrevue v-if="filmsStore.loader" />
-    <FilmCard
-        v-if="filmsStore.movie"
-        :id="filmsStore.movie.id"
-        :poster="filmsStore.movie.poster"
-        :title="filmsStore.movie.title"
-        :year="filmsStore.movie.year"
-        :genres="filmsStore.movie.genres"
-        :description="filmsStore.movie.description"
-        :actors="filmsStore.movie.actors"
-        :directors="filmsStore.movie.directors"
-        :duration="filmsStore.movie.collapse.duration"
-    />
+    <ul>
+        <FilmCard
+            v-if="filmsStore.movie"
+            :id="filmsStore.movie.id"
+            :poster="filmsStore.movie.poster"
+            :title="filmsStore.movie.title"
+            :year="filmsStore.movie.year"
+            :genres="filmsStore.movie.genres"
+            :description="filmsStore.movie.description"
+            :actors="filmsStore.movie.actors"
+            :directors="filmsStore.movie.directors"
+            :duration="filmsStore.movie.collapse.duration"
+        />
+    </ul>
+
     <NotFoundText v-if="filmsStore.errorQuery" />
 </template>
 
